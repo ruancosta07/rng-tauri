@@ -5,22 +5,6 @@ import { listen } from "@tauri-apps/api/event";
 import { open } from "@tauri-apps/plugin-dialog";
 import {openUrl} from "@tauri-apps/plugin-opener"
 
-// Pick a single PDF and run the diagnose command, showing step-by-step output
-async function runDiagnose(setLog: (l: string[]) => void) {
-  const selected = await open({
-    multiple: false,
-    filters: [{ name: "PDF", extensions: ["pdf"] }],
-  });
-  if (!selected) return;
-  const path = Array.isArray(selected) ? selected[0] : selected;
-  setLog(["Executando diagnóstico..."]);
-  try {
-    const lines = await invoke<string[]>("diagnose", { pdfPath: path });
-    setLog(lines);
-  } catch (e) {
-    setLog([`Erro: ${String(e)}`]);
-  }
-}
 
 type AppState = "checking" | "needs-download" | "downloading" | "ready";
 
@@ -71,8 +55,6 @@ export default function App() {
   const [dlError, setDlError] = useState<string | null>(null);
 
   const [files, setFiles] = useState<FileStatus[]>([]);
-  const [processing, setProcessing] = useState(false);
-  const [progress, setProgress] = useState({ current: 0, total: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [done, setDone] = useState(false);
   const [statusMsg, setStatusMsg] = useState<string | null>(null);
@@ -80,7 +62,7 @@ export default function App() {
   const [diagLog, setDiagLog] = useState<string[]>([]);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const processingRef = useRef(false);
-  const handleFoldersRef = useRef<(paths: string[]) => void>();
+  const handleFoldersRef = useRef<((paths: string[]) => void) | undefined>(undefined);
 
   // ── model check on mount ────────────────────────────────────────────────
   useEffect(() => {
@@ -134,10 +116,8 @@ export default function App() {
     if (processingRef.current || paths.length === 0) return;
 
     processingRef.current = true;
-    setProcessing(true);
     setDone(false);
     setFiles([]);
-    setProgress({ current: 0, total: 0 });
     setStatusMsg("Escaneando pastas...");
 
     let unlisten: (() => void) | undefined;
@@ -149,13 +129,11 @@ export default function App() {
         if (p.status === "fatal") {
           setStatusMsg(`Erro: ${p.error}`);
           processingRef.current = false;
-          setProcessing(false);
           unlisten?.();
           return;
         }
 
-        setProgress({ current: p.current, total: p.total });
-        setFiles((prev) => {
+setFiles((prev) => {
           if (!p.filename) return prev;
           const entry: FileStatus = {
             filename: p.filename,
@@ -177,7 +155,6 @@ export default function App() {
 
         if (p.current >= p.total && p.total > 0) {
           processingRef.current = false;
-          setProcessing(false);
           setDone(true);
           setStatusMsg(null);
           unlisten?.();
@@ -189,7 +166,6 @@ export default function App() {
       if (total === 0) {
         setStatusMsg("Nenhum PDF encontrado nas pastas selecionadas.");
         processingRef.current = false;
-        setProcessing(false);
         unlisten();
         return;
       }
@@ -198,7 +174,6 @@ export default function App() {
     } catch (e) {
       setStatusMsg(`Erro: ${String(e)}`);
       processingRef.current = false;
-      setProcessing(false);
       unlisten?.();
     }
   }, []);
@@ -241,19 +216,6 @@ export default function App() {
       setStatusMsg(`Erro ao abrir dialog: ${String(e)}`);
     }
   };
-
-  const reset = () => {
-    setFiles([]);
-    setProgress({ current: 0, total: 0 });
-    setDone(false);
-    setStatusMsg(null);
-    processingRef.current = false;
-  };
-
-  const pct =
-    progress.total > 0
-      ? Math.round((progress.current / progress.total) * 100)
-      : 0;
 
   const folderGroups = useMemo(() => {
     const map = new Map<
@@ -359,7 +321,7 @@ export default function App() {
 
           {/* header — only when idle and no history */}
           { !isDragging && (
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center cursor-pointer" onClick={pickFolders}>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="fill-white size-12 mb-2">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2" />

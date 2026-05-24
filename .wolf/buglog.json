@@ -240,6 +240,54 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-24T16:30:06.580Z"
+    },
+    {
+      "id": "bug-016",
+      "timestamp": "2026-05-24T18:43:44.103Z",
+      "error_message": "CSS fix: paths",
+      "file": "src/App.tsx",
+      "root_cause": "paths: string[]) => void>() → string[]) => void) | undefined>(undefined)",
+      "fix": "Changed paths: string[]) => void>() → string[]) => void) | undefined>(undefined)",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-24T18:43:44.103Z"
+    },
+    {
+      "id": "bug-017",
+      "timestamp": "2026-05-24T18:43:48.190Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/App.tsx",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 6→4 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-24T18:43:48.190Z"
+    },
+    {
+      "id": "bug-018",
+      "timestamp": "2026-05-24T18:44:04.725Z",
+      "error_message": "Incorrect value in code",
+      "file": "src/App.tsx",
+      "root_cause": "Had \"flex flex-col items-center\"",
+      "fix": "Changed to \"flex flex-col items-center cursor-pointer\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-24T18:44:04.725Z"
     }
   ]
 }

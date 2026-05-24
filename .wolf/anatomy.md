@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-24T18:38:03.308Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-24T18:44:19.162Z
 > Files: 31 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../.claude/plans/
@@ -65,7 +65,7 @@
 ## src/
 
 - `App.css` — Styles: 8 rules, 1 media queries (~497 tok)
-- `App.tsx` — Pick a single PDF and run the diagnose command, showing step-by-step output (~5094 tok)
+- `App.tsx` — HISTORY_KEY (~4854 tok)
 - `index.css` — Styles: 1 rules (~7 tok)
 - `main.tsx` (~72 tok)
 - `vite-env.d.ts` — / <reference types="vite/client" /> (~11 tok)
