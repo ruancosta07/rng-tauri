@@ -30,6 +30,29 @@ jobs:
       - name: Install frontend dependencies
         run: bun install
 
+      - name: Download and bundle OCR tools
+        shell: pwsh
+        run: |
+          $bins = "src-tauri/resources/bins"
+          New-Item -ItemType Directory -Force -Path "$bins/tessdata" | Out-Null
+
+          # Poppler (pdftoppm + pdftotext)
+          $release = Invoke-RestMethod "https://api.github.com/repos/oschwartz10612/poppler-windows/releases/latest"
+          $asset = $release.assets | Where-Object { $_.name -match "Release.*\.zip$" } | Select-Object -First 1
+          Invoke-WebRequest $asset.browser_download_url -OutFile poppler.zip
+          Expand-Archive poppler.zip -DestinationPath poppler-extracted
+          $popplerBin = (Get-ChildItem -Recurse -Path poppler-extracted -Filter "pdftoppm.exe" | Select-Object -First 1).DirectoryName
+          Copy-Item "$popplerBin\pdftoppm.exe" $bins
+          Copy-Item "$popplerBin\pdftotext.exe" $bins
+          Copy-Item "$popplerBin\*.dll" $bins
+
+          # Tesseract + eng.traineddata
+          choco install tesseract -y --no-progress
+          $tess = "C:\Program Files\Tesseract-OCR"
+          Copy-Item "$tess\tesseract.exe" $bins
+          Get-ChildItem "$tess" -Filter "*.dll" | Copy-Item -Destination $bins
+          Copy-Item "$tess\tessdata\eng.traineddata" "$bins\tessdata\"
+
       - name: Build Tauri app
         run: bun run tauri build
         env:

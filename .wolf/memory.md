@@ -144,3 +144,11 @@
 | 15:44 | Edited src/App.tsx | 4→3 lines | ~38 |
 | 15:44 | Edited src/App.tsx | 4→3 lines | ~28 |
 | 15:44 | Session end: 47 writes across 6 files (lib.rs, App.tsx, tauri.conf.json, README.md, .gitignore) | 6 reads | ~27286 tok |
+
+## Session: 2026-05-24 16:08
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 16:10 | Edited .github/workflows/build-windows.yml | expanded (+23 lines) | ~388 |
+| $(date +%H:%M) | Adicionado step no CI para baixar poppler-windows + tesseract antes do build | .github/workflows/build-windows.yml | Binários OCR agora são bundlados automaticamente no instalador Windows | ~300 |
+| 16:10 | Session end: 1 writes across 1 files (build-windows.yml) | 5 reads | ~7115 tok |
