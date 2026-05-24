@@ -1,0 +1,273 @@
+{
+  "session_id": "session-2026-05-24-1149",
+  "started": "2026-05-24T14:49:01.143Z",
+  "files_read": {
+    "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx": {
+      "count": 8,
+      "tokens": 5081,
+      "first_read": "2026-05-24T14:50:46.913Z"
+    },
+    "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs": {
+      "count": 5,
+      "tokens": 5591,
+      "first_read": "2026-05-24T14:50:55.909Z"
+    },
+    "/home/ruan/Documentos/pessoal/rng-tauri/package.json": {
+      "count": 1,
+      "tokens": 162,
+      "first_read": "2026-05-24T14:51:13.470Z"
+    },
+    "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/capabilities/default.json": {
+      "count": 1,
+      "tokens": 70,
+      "first_read": "2026-05-24T14:51:13.816Z"
+    },
+    "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json": {
+      "count": 1,
+      "tokens": 210,
+      "first_read": "2026-05-24T16:29:28.997Z"
+    },
+    "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/Cargo.toml": {
+      "count": 1,
+      "tokens": 179,
+      "first_read": "2026-05-24T16:29:29.428Z"
+    }
+  },
+  "files_written": [
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 76,
+      "at": "2026-05-24T14:51:32.570Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 216,
+      "at": "2026-05-24T14:51:39.663Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 442,
+      "at": "2026-05-24T14:51:48.483Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 95,
+      "at": "2026-05-24T14:51:54.795Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 153,
+      "at": "2026-05-24T14:52:00.410Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 105,
+      "at": "2026-05-24T14:52:05.335Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 377,
+      "at": "2026-05-24T14:52:15.306Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 968,
+      "at": "2026-05-24T14:52:38.264Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 83,
+      "at": "2026-05-24T14:55:09.593Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 49,
+      "at": "2026-05-24T14:55:14.564Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 106,
+      "at": "2026-05-24T14:55:19.287Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 417,
+      "at": "2026-05-24T14:55:27.305Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 192,
+      "at": "2026-05-24T14:55:34.652Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 111,
+      "at": "2026-05-24T14:55:40.673Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 98,
+      "at": "2026-05-24T14:55:45.441Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 227,
+      "at": "2026-05-24T14:55:53.899Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 167,
+      "at": "2026-05-24T14:58:26.278Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 174,
+      "at": "2026-05-24T14:58:34.115Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 905,
+      "at": "2026-05-24T14:58:58.906Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 2014,
+      "at": "2026-05-24T15:00:57.864Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 125,
+      "at": "2026-05-24T15:02:24.003Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 33,
+      "at": "2026-05-24T15:02:28.165Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 193,
+      "at": "2026-05-24T15:05:28.765Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 0,
+      "at": "2026-05-24T15:05:32.912Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 114,
+      "at": "2026-05-24T15:05:44.279Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 75,
+      "at": "2026-05-24T15:05:48.440Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 72,
+      "at": "2026-05-24T15:15:24.939Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 590,
+      "at": "2026-05-24T15:15:34.972Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 341,
+      "at": "2026-05-24T15:15:44.037Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 71,
+      "at": "2026-05-24T16:30:00.870Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 134,
+      "at": "2026-05-24T16:30:06.564Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "create",
+      "tokens": 6291,
+      "at": "2026-05-24T16:38:54.737Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json",
+      "action": "edit",
+      "tokens": 78,
+      "at": "2026-05-24T16:39:01.106Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/resources/bins/README.md",
+      "action": "create",
+      "tokens": 346,
+      "at": "2026-05-24T16:39:17.708Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/resources/bins/.gitignore",
+      "action": "create",
+      "tokens": 37,
+      "at": "2026-05-24T16:39:22.482Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/resources/bins/.gitignore",
+      "action": "create",
+      "tokens": 26,
+      "at": "2026-05-24T18:37:53.540Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
+      "action": "create",
+      "tokens": 465,
+      "at": "2026-05-24T18:38:03.318Z"
+    }
+  ],
+  "edit_counts": {
+    "src-tauri/src/lib.rs": 15,
+    "src/App.tsx": 17,
+    "src-tauri/tauri.conf.json": 1,
+    "src-tauri/resources/bins/README.md": 1,
+    "src-tauri/resources/bins/.gitignore": 2,
+    ".github/workflows/build-windows.yml": 1
+  },
+  "anatomy_hits": 6,
+  "anatomy_misses": 0,
+  "repeated_reads_warned": 11,
+  "cerebrum_warnings": 0,
+  "stop_count": 13
+}
