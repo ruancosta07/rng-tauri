@@ -70,6 +70,41 @@ fn resolve_bins(app: &AppHandle) -> BinPaths {
     }
 }
 
+fn bins_check(bins: &BinPaths) -> Result<(), String> {
+    #[cfg(target_os = "windows")]
+    {
+        let missing: Vec<String> = [
+            ("pdftoppm.exe", &bins.pdftoppm),
+            ("pdftotext.exe", &bins.pdftotext),
+            ("tesseract.exe", &bins.tesseract),
+        ]
+        .iter()
+        .filter(|(_, p)| !p.exists())
+        .map(|(name, p)| format!("{name} (procurado em: {})", p.display()))
+        .collect();
+
+        let tessdata_missing = bins
+            .tessdata_dir
+            .as_ref()
+            .map(|d| {
+                let f = d.join("eng.traineddata");
+                if f.exists() { None } else { Some(format!("eng.traineddata (procurado em: {})", f.display())) }
+            })
+            .unwrap_or(None);
+
+        let all_missing: Vec<String> = missing.into_iter().chain(tessdata_missing).collect();
+        if all_missing.is_empty() {
+            Ok(())
+        } else {
+            Err(format!("Arquivos não encontrados:\n{}", all_missing.join("\n")))
+        }
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        Ok(())
+    }
+}
+
 fn bins_available(bins: &BinPaths) -> bool {
     #[cfg(target_os = "windows")]
     {
@@ -566,8 +601,8 @@ fn process_pdf(
 #[tauri::command]
 fn process_folders(folders: Vec<String>, app: AppHandle) -> Result<usize, String> {
     let bins = resolve_bins(&app);
-    if !bins_available(&bins) {
-        return Err("Ferramentas de OCR não encontradas. Reinstale o aplicativo.".to_string());
+    if let Err(msg) = bins_check(&bins) {
+        return Err(msg);
     }
 
     let mut tasks: Vec<(PathBuf, PathBuf)> = vec![];

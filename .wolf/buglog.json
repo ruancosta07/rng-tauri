@@ -352,6 +352,22 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-25T13:53:22.113Z"
+    },
+    {
+      "id": "bug-023",
+      "timestamp": "2026-05-25T14:15:42.012Z",
+      "error_message": "Wrong return value",
+      "file": "src-tauri/src/lib.rs",
+      "root_cause": "Was returning: Err(\"Ferramentas de OCR não encontradas. Reinstale",
+      "fix": "Now returns: Err(msg);",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "rs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-25T14:15:42.012Z"
     }
   ]
 }
