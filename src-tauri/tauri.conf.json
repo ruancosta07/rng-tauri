@@ -28,7 +28,11 @@
     "active": true,
     "targets": "all",
     "icon": [
-      "icons/appicon.png"
+      "icons/appicon.png",
+      "icons/appicon.png",
+      "icons/appicon.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
     ],
     "resources": {
       "resources/bins/**/*": "bins/"
