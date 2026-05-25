@@ -336,6 +336,22 @@
       "related_bugs": [],
       "occurrences": 2,
       "last_seen": "2026-05-25T13:31:56.840Z"
+    },
+    {
+      "id": "bug-022",
+      "timestamp": "2026-05-25T13:53:22.113Z",
+      "error_message": "Significant refactor of ",
+      "file": "src-tauri/src/lib.rs",
+      "root_cause": "5 lines replaced/restructured",
+      "fix": "Rewrote 15→17 lines (5 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "rs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-25T13:53:22.113Z"
     }
   ]
 }

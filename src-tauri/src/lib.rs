@@ -44,11 +44,13 @@ struct BinPaths {
 fn resolve_bins(app: &AppHandle) -> BinPaths {
     #[cfg(target_os = "windows")]
     {
-        let res = app
-            .path()
-            .resource_dir()
-            .unwrap_or_else(|_| PathBuf::from("."));
-        let bins = res.join("bins");
+        let base = std::env::current_exe()
+            .ok()
+            .and_then(|p| p.parent().map(|d| d.to_path_buf()))
+            .or_else(|| app.path().resource_dir().ok())
+            .unwrap_or_else(|| PathBuf::from("."));
+        let bins = base.join("bins");
+        eprintln!("[resolve_bins] base={} bins={}", base.display(), bins.display());
         BinPaths {
             pdftoppm: bins.join("pdftoppm.exe"),
             pdftotext: bins.join("pdftotext.exe"),

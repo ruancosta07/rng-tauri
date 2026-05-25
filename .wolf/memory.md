@@ -166,3 +166,6 @@
 | 10:31 | Edited src/App.tsx | removed 7 lines | ~1 |
 | 10:32 | Edited src/App.tsx | removed 43 lines | ~10 |
 | 10:32 | Session end: 6 writes across 2 files (README.md, App.tsx) | 1 reads | ~352 tok |
+| 10:51 | Session end: 6 writes across 2 files (README.md, App.tsx) | 3 reads | ~6451 tok |
+| 10:53 | Edited src-tauri/src/lib.rs | modified resolve_bins() | ~182 |
+| 10:53 | Session end: 7 writes across 3 files (README.md, App.tsx, lib.rs) | 6 reads | ~7717 tok |
