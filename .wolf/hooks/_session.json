@@ -87,16 +87,23 @@
       "action": "edit",
       "tokens": 21,
       "at": "2026-05-25T14:15:42.011Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json",
+      "action": "edit",
+      "tokens": 32,
+      "at": "2026-05-25T14:26:07.811Z"
     }
   ],
   "edit_counts": {
     "src-tauri/resources/bins/README.md": 1,
     "src/App.tsx": 5,
-    "src-tauri/src/lib.rs": 3
+    "src-tauri/src/lib.rs": 3,
+    "src-tauri/tauri.conf.json": 1
   },
   "anatomy_hits": 6,
   "anatomy_misses": 0,
   "repeated_reads_warned": 6,
   "cerebrum_warnings": 0,
-  "stop_count": 7
+  "stop_count": 8
 }

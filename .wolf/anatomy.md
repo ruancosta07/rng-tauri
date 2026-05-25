@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-25T14:15:41.999Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-25T14:26:07.796Z
 > Files: 31 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../.claude/plans/
@@ -35,7 +35,7 @@
 - `.gitignore` — Git ignore rules (~45 tok)
 - `build.rs` (~12 tok)
 - `Cargo.toml` — Rust package manifest (~179 tok)
-- `tauri.conf.json` — /*": "bins/" (~228 tok)
+- `tauri.conf.json` (~255 tok)
 
 ## src-tauri/capabilities/
 

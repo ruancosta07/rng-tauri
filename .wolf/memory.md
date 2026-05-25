@@ -172,3 +172,5 @@
 | 11:15 | Edited src-tauri/src/lib.rs | modified bins_check() | ~388 |
 | 11:15 | Edited src-tauri/src/lib.rs | modified bins_check() | ~20 |
 | 11:15 | Session end: 9 writes across 3 files (README.md, App.tsx, lib.rs) | 6 reads | ~8496 tok |
+| 11:26 | Edited src-tauri/tauri.conf.json | 3→4 lines | ~32 |
+| 11:26 | Session end: 10 writes across 4 files (README.md, App.tsx, lib.rs, tauri.conf.json) | 6 reads | ~8528 tok |
