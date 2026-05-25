@@ -8,6 +8,16 @@ use tauri::{AppHandle, Emitter, Manager};
 use tempfile::TempDir;
 use walkdir::WalkDir;
 
+fn cmd(program: impl AsRef<std::ffi::OsStr>) -> Command {
+    let mut c = Command::new(program);
+    #[cfg(target_os = "windows")]
+    {
+        use std::os::windows::process::CommandExt;
+        c.creation_flags(0x08000000); // CREATE_NO_WINDOW
+    }
+    c
+}
+
 // ── event types ────────────────────────────────────────────────────────────
 
 #[derive(Serialize, Clone)]
@@ -138,7 +148,7 @@ fn command_exists(name: &str) -> bool {
     } else {
         "which"
     };
-    Command::new(checker)
+    cmd(checker)
         .arg(name)
         .output()
         .map(|o| o.status.success())
@@ -146,7 +156,7 @@ fn command_exists(name: &str) -> bool {
 }
 
 fn tesseract_has_languages(bins: &BinPaths, required: &[&str]) -> bool {
-    let mut cmd = Command::new(&bins.tesseract);
+    let mut cmd = cmd(&bins.tesseract);
     if let Some(td) = &bins.tessdata_dir {
         cmd.arg("--tessdata-dir").arg(td);
     }
@@ -216,7 +226,7 @@ fn pdf_first_page_to_image(
 
     eprintln!("[process] pdftoppm start");
     let output = run_with_timeout(
-        Command::new(&bins.pdftoppm).args([
+        cmd(&bins.pdftoppm).args([
             "-jpeg",
             "-r",
             "120",
@@ -248,7 +258,7 @@ fn extract_pdf_text(pdf_path: &PathBuf, bins: &BinPaths) -> Result<String, Strin
     eprintln!("[process] pdftotext start");
     let pdf_str = pdf_path.to_string_lossy().to_string();
     let output = run_with_timeout(
-        Command::new(&bins.pdftotext).args([&pdf_str, "-"]),
+        cmd(&bins.pdftotext).args([&pdf_str, "-"]),
         Duration::from_secs(10),
     )
     .map_err(|e| format!("pdftotext: {e}"))?;
@@ -277,7 +287,7 @@ fn ocr_image(image_path: &PathBuf, bins: &BinPaths) -> Result<String, String> {
     eprintln!("[process] tesseract start");
     let image_str = image_path.to_string_lossy().to_string();
 
-    let mut cmd = Command::new(&bins.tesseract);
+    let mut cmd = cmd(&bins.tesseract);
     cmd.env("OMP_THREAD_LIMIT", "1");
     if let Some(td) = &bins.tessdata_dir {
         cmd.arg("--tessdata-dir").arg(td);
@@ -412,7 +422,7 @@ fn diagnose(pdf_path: String, app: AppHandle) -> Result<Vec<String>, String> {
     let image_base = temp_dir.path().join("page").to_string_lossy().to_string();
     step!("running pdftoppm on {pdf_path}");
     let o = run_with_timeout(
-        Command::new(&bins.pdftoppm).args([
+        cmd(&bins.pdftoppm).args([
             "-jpeg",
             "-r",
             "120",
@@ -722,14 +732,14 @@ fn process_folders(folders: Vec<String>, app: AppHandle) -> Result<usize, String
 #[tauri::command]
 fn open_folder(path: String) -> Result<(), String> {
     #[cfg(target_os = "windows")]
-    let cmd = ("explorer", vec![path.clone()]);
+    let open_cmd = ("explorer", vec![path.clone()]);
     #[cfg(target_os = "macos")]
-    let cmd = ("open", vec![path.clone()]);
+    let open_cmd = ("open", vec![path.clone()]);
     #[cfg(not(any(target_os = "windows", target_os = "macos")))]
-    let cmd = ("xdg-open", vec![path.clone()]);
+    let open_cmd = ("xdg-open", vec![path.clone()]);
 
-    Command::new(cmd.0)
-        .args(cmd.1)
+    cmd(open_cmd.0)
+        .args(open_cmd.1)
         .spawn()
         .map_err(|e| format!("open_folder: {e}"))?;
     Ok(())

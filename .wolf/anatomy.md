@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-25T14:26:07.796Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-25T14:51:47.505Z
 > Files: 31 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../.claude/plans/
@@ -28,7 +28,7 @@
 
 ## .github/workflows/
 
-- `build-windows.yml` — CI: Build Windows (~824 tok)
+- `build-windows.yml` — CI: Build Windows (~909 tok)
 
 ## src-tauri/
 
@@ -59,7 +59,7 @@
 
 ## src-tauri/src/
 
-- `lib.rs` — ── event types ──────────────────────────────────────────────────────────── (~6197 tok)
+- `lib.rs` (~6256 tok)
 - `main.rs` — Prevents additional console window on Windows in release, DO NOT REMOVE!! (~53 tok)
 
 ## src/

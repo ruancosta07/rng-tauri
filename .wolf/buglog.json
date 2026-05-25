@@ -368,6 +368,22 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-25T14:15:42.012Z"
+    },
+    {
+      "id": "bug-024",
+      "timestamp": "2026-05-25T14:51:21.190Z",
+      "error_message": "Wrong reference: Command should be cmd",
+      "file": "src-tauri/src/lib.rs",
+      "root_cause": "Used \"Command\" instead of \"cmd\"",
+      "fix": "Changed Command → cmd",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "rs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-25T14:51:21.190Z"
     }
   ]
 }
