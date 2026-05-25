@@ -6,7 +6,7 @@ import { open } from "@tauri-apps/plugin-dialog";
 import {openUrl} from "@tauri-apps/plugin-opener"
 
 
-type AppState = "checking" | "needs-download" | "downloading" | "ready";
+type AppState = "ready";
 
 interface FileStatus {
   filename: string;
@@ -42,17 +42,9 @@ interface HistoryEntry {
 
 const HISTORY_KEY = "rng-history";
 
-interface DownloadPayload {
-  filename: string;
-  downloaded: number;
-  total: number;
-}
 
 export default function App() {
-  const [appState, setAppState] = useState<AppState>("checking");
-  const [dlFile, setDlFile] = useState("");
-  const [dlPct, setDlPct] = useState(0);
-  const [dlError, setDlError] = useState<string | null>(null);
+  const [appState] = useState<AppState>("ready");
 
   const [files, setFiles] = useState<FileStatus[]>([]);
   const [isDragging, setIsDragging] = useState(false);
@@ -64,52 +56,11 @@ export default function App() {
   const processingRef = useRef(false);
   const handleFoldersRef = useRef<((paths: string[]) => void) | undefined>(undefined);
 
-  // ── model check on mount ────────────────────────────────────────────────
+  // ── load history on mount ───────────────────────────────────────────────
   useEffect(() => {
-    invoke<boolean>("check_models")
-      .then((ok) => setAppState(ok ? "ready" : "needs-download"))
-      .catch(() => setAppState("needs-download"));
     const stored = localStorage.getItem(HISTORY_KEY);
     if (stored) setHistory(JSON.parse(stored));
   }, []);
-
-  // ── model download ──────────────────────────────────────────────────────
-  const startDownload = async () => {
-    setAppState("downloading");
-    setDlError(null);
-    setDlPct(0);
-
-    const unlistenProgress = await listen<DownloadPayload>(
-      "download-progress",
-      (e) => {
-        const { filename, downloaded, total } = e.payload;
-        setDlFile(filename);
-        setDlPct(total > 0 ? Math.round((downloaded / total) * 100) : 0);
-      },
-    );
-
-    const unlistenDone = await listen("download-done", () => {
-      unlistenProgress();
-      unlistenDone();
-      setAppState("ready");
-    });
-
-    const unlistenError = await listen<string>("download-error", (e) => {
-      unlistenProgress();
-      unlistenDone();
-      unlistenError();
-      setDlError(e.payload);
-      setAppState("needs-download");
-    });
-
-    invoke("download_models").catch((e: unknown) => {
-      unlistenProgress();
-      unlistenDone();
-      unlistenError();
-      setDlError(String(e));
-      setAppState("needs-download");
-    });
-  };
 
   // ── processing ──────────────────────────────────────────────────────────
   const handleFolders = useCallback(async (paths: string[]) => {
@@ -264,48 +215,6 @@ setFiles((prev) => {
     <div className="min-h-screen bg-black text-white  flex flex-col items-center justify-center p-6 gap-5 select-none ">
       <div className="h-px bg-white/10" />
 
-      {/* ── checking ── */}
-      {appState === "checking" && (
-        <p className="text-xs text-white/30 tracking-widest uppercase text-center py-10">
-          Verificando modelos...
-        </p>
-      )}
-
-      {/* ── needs-download ── */}
-      {appState === "needs-download" && (
-        <div className="flex flex-col items-center gap-4 py-10">
-          <p className="text-xs text-white/50 text-center max-w-xs leading-relaxed">
-            Os modelos de OCR (~80 MB) precisam ser baixados uma única vez.
-          </p>
-          {dlError && (
-            <p className="text-xs text-white/30 text-center">{dlError}</p>
-          )}
-          <button
-            onClick={startDownload}
-            className="px-6 py-2 text-xs border border-white/30 rounded hover:border-white/70 hover:text-white transition-colors tracking-widest uppercase text-white/60"
-          >
-            Baixar modelos
-          </button>
-        </div>
-      )}
-
-      {/* ── downloading ── */}
-      {appState === "downloading" && (
-        <div className="flex flex-col gap-3 py-10">
-          <p className="text-xs text-white/40 tracking-widest uppercase text-center">
-            {dlFile || "Preparando..."}
-          </p>
-          <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-white rounded-full transition-all duration-200 ease-out"
-              style={{ width: `${dlPct}%` }}
-            />
-          </div>
-          <p className="text-xs text-white/30 text-center">{dlPct}%</p>
-        </div>
-      )}
-
-      {/* ── ready ── */}
       {appState === "ready" && (
         <>
           {/* drag overlay */}

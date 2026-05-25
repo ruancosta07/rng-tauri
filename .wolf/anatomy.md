@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-24T19:10:20.884Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-25T13:32:08.876Z
 > Files: 31 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../.claude/plans/
@@ -55,7 +55,7 @@
 ## src-tauri/resources/bins/
 
 - `.gitignore` — Git ignore rules (~24 tok)
-- `README.md` — Project documentation (~303 tok)
+- `README.md` — Project documentation (~122 tok)
 
 ## src-tauri/src/
 
@@ -65,7 +65,7 @@
 ## src/
 
 - `App.css` — Styles: 8 rules, 1 media queries (~497 tok)
-- `App.tsx` — HISTORY_KEY (~4854 tok)
+- `App.tsx` — HISTORY_KEY (~3970 tok)
 - `index.css` — Styles: 1 rules (~7 tok)
 - `main.tsx` (~72 tok)
 - `vite-env.d.ts` — / <reference types="vite/client" /> (~11 tok)

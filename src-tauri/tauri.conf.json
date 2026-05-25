@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "tauri-app",
+  "productName": "Renomeador de Guias",
   "version": "0.1.0",
-  "identifier": "com.ruan.tauri-app",
+  "identifier": "com.ruan.renomeador-de-guias",
   "build": {
     "beforeDevCommand": "bun run dev",
     "devUrl": "http://localhost:1420",
@@ -15,7 +15,9 @@
         "title": "Renomeador de Guias",
         "width": 640,
         "height": 680,
-        "resizable": true
+        "resizable": true,
+        "devtools": false
+
       }
     ],
     "security": {
@@ -26,11 +28,7 @@
     "active": true,
     "targets": "all",
     "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
+      "icons/appicon.png"
     ],
     "resources": {
       "resources/bins/**/*": "bins/"
