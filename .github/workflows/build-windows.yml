@@ -72,12 +72,13 @@ jobs:
         run: |
           $version = "${{ github.ref_name }}".TrimStart("v")
           $nsisDir = "src-tauri/target/release/bundle/nsis"
-          $exe = Get-ChildItem "$nsisDir" -Filter "*.exe" | Select-Object -First 1
-          $sig = Get-Content "$($exe.FullName).sig" -Raw
+          $zip = Get-ChildItem "$nsisDir" -Filter "*.nsis.zip" | Select-Object -First 1
+          if (-not $zip) { throw "Nenhum .nsis.zip encontrado em $nsisDir" }
+          $sig = Get-Content "$($zip.FullName).sig" -Raw
 
           $repo = "ruancosta07/rng-tauri"
           $tag  = "${{ github.ref_name }}"
-          $url  = "https://github.com/$repo/releases/download/$tag/$($exe.Name)"
+          $url  = "https://github.com/$repo/releases/download/$tag/$($zip.Name)"
           $date = (Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ")
 
           $json = @{
@@ -116,6 +117,8 @@ jobs:
         with:
           files: |
             src-tauri/target/release/bundle/nsis/*.exe
+            src-tauri/target/release/bundle/nsis/*.nsis.zip
+            src-tauri/target/release/bundle/nsis/*.nsis.zip.sig
             src-tauri/target/release/bundle/msi/*.msi
             latest.json
           generate_release_notes: true

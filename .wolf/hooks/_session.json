@@ -8,8 +8,8 @@
       "first_read": "2026-05-26T02:14:46.729Z"
     },
     "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json": {
-      "count": 1,
-      "tokens": 255,
+      "count": 2,
+      "tokens": 300,
       "first_read": "2026-05-26T02:14:47.265Z"
     },
     "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/Cargo.toml": {
@@ -97,21 +97,39 @@
       "action": "edit",
       "tokens": 127,
       "at": "2026-05-26T02:25:45.212Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
+      "action": "edit",
+      "tokens": 336,
+      "at": "2026-05-26T02:39:56.627Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
+      "action": "edit",
+      "tokens": 79,
+      "at": "2026-05-26T02:40:01.477Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json",
+      "action": "edit",
+      "tokens": 26,
+      "at": "2026-05-26T02:51:50.862Z"
     }
   ],
   "edit_counts": {
     "src-tauri/Cargo.toml": 1,
-    "src-tauri/tauri.conf.json": 1,
+    "src-tauri/tauri.conf.json": 2,
     "src-tauri/capabilities/default.json": 1,
     "src-tauri/src/lib.rs": 1,
     "src/components/UpdateDialog.tsx": 1,
     "src/App.tsx": 2,
-    ".github/workflows/build-windows.yml": 1,
+    ".github/workflows/build-windows.yml": 3,
     "vite.config.ts": 1
   },
   "anatomy_hits": 8,
   "anatomy_misses": 0,
-  "repeated_reads_warned": 2,
+  "repeated_reads_warned": 3,
   "cerebrum_warnings": 0,
-  "stop_count": 3
+  "stop_count": 5
 }
