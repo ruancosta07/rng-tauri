@@ -2,14 +2,14 @@
   "version": 1,
   "created_at": "2026-05-24T02:07:25.795Z",
   "lifetime": {
-    "total_tokens_estimated": 608756,
-    "total_reads": 232,
-    "total_writes": 797,
-    "total_sessions": 5,
-    "anatomy_hits": 223,
+    "total_tokens_estimated": 638816,
+    "total_reads": 246,
+    "total_writes": 813,
+    "total_sessions": 6,
+    "anatomy_hits": 237,
     "anatomy_misses": 0,
-    "repeated_reads_blocked": 280,
-    "estimated_savings_vs_bare_cli": 1402304
+    "repeated_reads_blocked": 284,
+    "estimated_savings_vs_bare_cli": 1420984
   },
   "sessions": [
     {
@@ -6099,6 +6099,204 @@
         "writes_count": 25,
         "repeated_reads_blocked": 15,
         "anatomy_lookups": 6
+      }
+    },
+    {
+      "id": "session-2026-05-26-2310",
+      "started": "2026-05-26T02:10:42.639Z",
+      "ended": "2026-05-26T02:17:07.381Z",
+      "reads": [
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
+          "tokens_estimated": 909,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json",
+          "tokens_estimated": 255,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/Cargo.toml",
+          "tokens_estimated": 179,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+          "tokens_estimated": 7505,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/capabilities/default.json",
+          "tokens_estimated": 70,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+          "tokens_estimated": 3970,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/package.json",
+          "tokens_estimated": 162,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/Cargo.toml",
+          "tokens_estimated": 30,
+          "action": "edit"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json",
+          "tokens_estimated": 65,
+          "action": "edit"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/capabilities/default.json",
+          "tokens_estimated": 31,
+          "action": "edit"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+          "tokens_estimated": 65,
+          "action": "edit"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/components/UpdateDialog.tsx",
+          "tokens_estimated": 486,
+          "action": "create"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+          "tokens_estimated": 31,
+          "action": "edit"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+          "tokens_estimated": 44,
+          "action": "edit"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
+          "tokens_estimated": 1228,
+          "action": "create"
+        }
+      ],
+      "totals": {
+        "input_tokens_estimated": 13050,
+        "output_tokens_estimated": 1980,
+        "reads_count": 7,
+        "writes_count": 8,
+        "repeated_reads_blocked": 2,
+        "anatomy_lookups": 7
+      }
+    },
+    {
+      "id": "session-2026-05-26-2310",
+      "started": "2026-05-26T02:10:42.639Z",
+      "ended": "2026-05-26T02:21:57.550Z",
+      "reads": [
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
+          "tokens_estimated": 909,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json",
+          "tokens_estimated": 255,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/Cargo.toml",
+          "tokens_estimated": 179,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+          "tokens_estimated": 7505,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/capabilities/default.json",
+          "tokens_estimated": 70,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+          "tokens_estimated": 3970,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/package.json",
+          "tokens_estimated": 162,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/Cargo.toml",
+          "tokens_estimated": 30,
+          "action": "edit"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json",
+          "tokens_estimated": 65,
+          "action": "edit"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/capabilities/default.json",
+          "tokens_estimated": 31,
+          "action": "edit"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+          "tokens_estimated": 65,
+          "action": "edit"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/components/UpdateDialog.tsx",
+          "tokens_estimated": 486,
+          "action": "create"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+          "tokens_estimated": 31,
+          "action": "edit"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+          "tokens_estimated": 44,
+          "action": "edit"
+        },
+        {
+          "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
+          "tokens_estimated": 1228,
+          "action": "create"
+        }
+      ],
+      "totals": {
+        "input_tokens_estimated": 13050,
+        "output_tokens_estimated": 1980,
+        "reads_count": 7,
+        "writes_count": 8,
+        "repeated_reads_blocked": 2,
+        "anatomy_lookups": 7
       }
     }
   ],

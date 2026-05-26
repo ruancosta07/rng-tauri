@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-25T18:05:24.713Z
-> Files: 31 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-26T02:16:47.812Z
+> Files: 32 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../.claude/plans/
 
@@ -28,18 +28,18 @@
 
 ## .github/workflows/
 
-- `build-windows.yml` — CI: Build Windows (~909 tok)
+- `build-windows.yml` — CI: Build Windows (~1228 tok)
 
 ## src-tauri/
 
 - `.gitignore` — Git ignore rules (~45 tok)
 - `build.rs` (~12 tok)
-- `Cargo.toml` — Rust package manifest (~179 tok)
-- `tauri.conf.json` (~255 tok)
+- `Cargo.toml` — Rust package manifest (~140 tok)
+- `tauri.conf.json` (~300 tok)
 
 ## src-tauri/capabilities/
 
-- `default.json` (~70 tok)
+- `default.json` (~83 tok)
 
 ## src-tauri/gen/schemas/
 
@@ -59,13 +59,17 @@
 
 ## src-tauri/src/
 
-- `lib.rs` (~7505 tok)
+- `lib.rs` (~7534 tok)
 - `main.rs` — Prevents additional console window on Windows in release, DO NOT REMOVE!! (~53 tok)
 
 ## src/
 
 - `App.css` — Styles: 8 rules, 1 media queries (~497 tok)
-- `App.tsx` — HISTORY_KEY (~3970 tok)
+- `App.tsx` — HISTORY_KEY (~3993 tok)
 - `index.css` — Styles: 1 rules (~7 tok)
 - `main.tsx` (~72 tok)
 - `vite-env.d.ts` — / <reference types="vite/client" /> (~11 tok)
+
+## src/components/
+
+- `UpdateDialog.tsx` — UpdateDialog (~486 tok)

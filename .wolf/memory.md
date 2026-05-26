@@ -196,3 +196,18 @@
 | 15:02 | Session end: 24 writes across 5 files (README.md, App.tsx, lib.rs, tauri.conf.json, build-windows.yml) | 6 reads | ~12974 tok |
 | 15:05 | Edited src-tauri/src/lib.rs | modified run_tesseract() | ~479 |
 | 15:05 | Session end: 25 writes across 5 files (README.md, App.tsx, lib.rs, tauri.conf.json, build-windows.yml) | 6 reads | ~13487 tok |
+
+## Session: 2026-05-26 23:10
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 23:15 | Edited src-tauri/Cargo.toml | 2→4 lines | ~28 |
+| 23:15 | Edited src-tauri/tauri.conf.json | expanded (+8 lines) | ~65 |
+| 23:15 | Edited src-tauri/capabilities/default.json | 3→5 lines | ~31 |
+| 23:16 | Edited src-tauri/src/lib.rs | 3→5 lines | ~61 |
+| 23:16 | Created src/components/UpdateDialog.tsx | — | ~486 |
+| 23:16 | Edited src/App.tsx | added 1 import(s) | ~31 |
+| 23:16 | Edited src/App.tsx | 2→3 lines | ~44 |
+| 23:16 | Created .github/workflows/build-windows.yml | — | ~1228 |
+| 23:17 | Session end: 8 writes across 7 files (Cargo.toml, tauri.conf.json, default.json, lib.rs, UpdateDialog.tsx) | 7 reads | ~15030 tok |
+| 23:21 | Session end: 8 writes across 7 files (Cargo.toml, tauri.conf.json, default.json, lib.rs, UpdateDialog.tsx) | 7 reads | ~15030 tok |
