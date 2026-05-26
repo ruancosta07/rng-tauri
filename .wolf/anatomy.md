@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-25T14:51:47.505Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-25T18:05:24.713Z
 > Files: 31 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../.claude/plans/
@@ -59,7 +59,7 @@
 
 ## src-tauri/src/
 
-- `lib.rs` (~6256 tok)
+- `lib.rs` (~7505 tok)
 - `main.rs` — Prevents additional console window on Windows in release, DO NOT REMOVE!! (~53 tok)
 
 ## src/

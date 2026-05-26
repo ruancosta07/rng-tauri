@@ -384,6 +384,38 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-25T14:51:21.190Z"
+    },
+    {
+      "id": "bug-025",
+      "timestamp": "2026-05-25T17:54:32.485Z",
+      "error_message": "Incorrect value in code",
+      "file": "src-tauri/src/lib.rs",
+      "root_cause": "Had \"\\b\\d{5,}\\b\"",
+      "fix": "Changed to \"\\b10\\d{7}\\b\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "rs"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-25T17:58:23.255Z"
+    },
+    {
+      "id": "bug-026",
+      "timestamp": "2026-05-25T17:57:41.167Z",
+      "error_message": "Significant refactor of ",
+      "file": "src-tauri/src/lib.rs",
+      "root_cause": "3 lines replaced/restructured",
+      "fix": "Rewrote 15→25 lines (3 removed) | Also: eprintln!(\"[process] tesseract start\");; let mut cmd = cmd(&bins.tesseract);",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "rs"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-25T18:01:58.497Z"
     }
   ]
 }

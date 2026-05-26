@@ -283,65 +283,73 @@ fn extract_pdf_text(pdf_path: &PathBuf, bins: &BinPaths) -> Result<String, Strin
     Ok(text)
 }
 
-fn ocr_image(image_path: &PathBuf, bins: &BinPaths) -> Result<String, String> {
-    eprintln!("[process] tesseract start");
+fn run_tesseract(image_path: &PathBuf, bins: &BinPaths, psm: &str, dpi: Option<&str>, whitelist: bool) -> Result<String, String> {
     let image_str = image_path.to_string_lossy().to_string();
-
-    let mut cmd = cmd(&bins.tesseract);
-    cmd.env("OMP_THREAD_LIMIT", "1");
+    let mut c = cmd(&bins.tesseract);
+    c.env("OMP_THREAD_LIMIT", "1");
     if let Some(td) = &bins.tessdata_dir {
-        cmd.arg("--tessdata-dir").arg(td);
+        c.arg("--tessdata-dir").arg(td);
     }
-    cmd.args([
-        &image_str,
-        "stdout",
-        "-l",
-        "eng",
-        "--psm",
-        "6",
-        "--dpi",
-        "120",
-        "-c",
-        "tessedit_char_whitelist=0123456789",
-    ]);
-
-    let output = run_with_timeout(&mut cmd, Duration::from_secs(15))
+    c.args([&image_str, "stdout", "-l", "eng", "--psm", psm]);
+    if whitelist {
+        c.args(["-c", "tessedit_char_whitelist=0123456789"]);
+    }
+    if let Some(d) = dpi {
+        c.args(["--dpi", d]);
+    }
+    let output = run_with_timeout(&mut c, Duration::from_secs(15))
         .map_err(|e| format!("tesseract: {e}"))?;
-
-    eprintln!("[process] tesseract exit={}", output.status);
-    if !output.stderr.is_empty() {
-        eprintln!(
-            "[process] tesseract stderr: {}",
-            String::from_utf8_lossy(&output.stderr).trim()
-        );
-    }
-
     if !output.status.success() {
-        return Err(format!(
-            "tesseract: {}",
-            String::from_utf8_lossy(&output.stderr).trim()
-        ));
+        return Err(format!("tesseract: {}", String::from_utf8_lossy(&output.stderr).trim()));
     }
+    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+}
 
-    let text = String::from_utf8_lossy(&output.stdout).to_string();
+// Para imagens geradas do PDF (DPI conhecido = 120, layout uniforme)
+fn ocr_image(image_path: &PathBuf, bins: &BinPaths) -> Result<String, String> {
+    eprintln!("[process] tesseract start (pdf-derived)");
+    let text = run_tesseract(image_path, bins, "6", Some("120"), true)?;
     eprintln!("[process] tesseract done, {} chars", text.len());
     Ok(text)
 }
 
-fn unique_destination(output_dir: &PathBuf, code: &str) -> PathBuf {
-    let first = output_dir.join(format!("{code}.pdf"));
+// Para imagens reais: sem whitelist (evita mesclar dígitos), tenta PSM 11 → 3 → 6
+fn ocr_image_direct(image_path: &PathBuf, bins: &BinPaths, re: &Regex) -> Result<String, String> {
+    eprintln!("[process] tesseract start (direct image)");
+    for psm in ["11", "3", "6"] {
+        let text = run_tesseract(image_path, bins, psm, None, false)?;
+        eprintln!("[process] psm={psm} chars={}", text.len());
+        if re.find(&text).is_some() {
+            return Ok(text);
+        }
+    }
+    run_tesseract(image_path, bins, "11", None, false)
+}
+
+fn unique_destination(output_dir: &PathBuf, code: &str, ext: &str) -> PathBuf {
+    let first = output_dir.join(format!("{code}.{ext}"));
     if !first.exists() {
         return first;
     }
 
     for suffix in 2usize.. {
-        let candidate = output_dir.join(format!("{code}-{suffix}.pdf"));
+        let candidate = output_dir.join(format!("{code}-{suffix}.{ext}"));
         if !candidate.exists() {
             return candidate;
         }
     }
 
     unreachable!("infinite suffix iterator should always find a path")
+}
+
+fn is_image(path: &PathBuf) -> bool {
+    matches!(
+        path.extension()
+            .and_then(|e| e.to_str())
+            .map(|e| e.to_lowercase())
+            .as_deref(),
+        Some("jpg" | "jpeg" | "png" | "tiff" | "tif" | "bmp" | "webp" | "gif")
+    )
 }
 
 // ── dependency check ───────────────────────────────────────────────────────
@@ -401,7 +409,7 @@ fn diagnose(pdf_path: String, app: AppHandle) -> Result<Vec<String>, String> {
         step!("tessdata: {}", td.display());
     }
 
-    let re = Regex::new(r"\b\d{5,}\b").unwrap();
+    let re = Regex::new(r"\b10\d{7}\b").unwrap();
     step!("running pdftotext...");
     match extract_pdf_text(&PathBuf::from(&pdf_path), &bins) {
         Ok(text) => {
@@ -549,7 +557,7 @@ fn process_pdf(
 
     match result {
         Ok(code) => {
-            let dest = unique_destination(output_dir, &code);
+            let dest = unique_destination(output_dir, &code, "pdf");
             eprintln!("[process] copy to: {}", dest.display());
             match fs::copy(pdf_path, &dest) {
                 Ok(_) => {
@@ -608,6 +616,115 @@ fn process_pdf(
     }
 }
 
+fn process_image(
+    image_path: &PathBuf,
+    output_dir: &PathBuf,
+    re: &Regex,
+    app: &AppHandle,
+    bins: &BinPaths,
+    current: usize,
+    total: usize,
+    folder_total: usize,
+) -> Option<String> {
+    let filename = image_path
+        .file_name()
+        .unwrap_or_default()
+        .to_string_lossy()
+        .to_string();
+    let folder = image_path
+        .parent()
+        .and_then(|p| p.file_name())
+        .unwrap_or_default()
+        .to_string_lossy()
+        .to_string();
+    let output_dir_str = output_dir.to_string_lossy().to_string();
+    let ext = image_path
+        .extension()
+        .and_then(|e| e.to_str())
+        .unwrap_or("img")
+        .to_lowercase();
+
+    emit_progress(
+        app,
+        ProgressEvent {
+            current: current - 1,
+            total,
+            filename: filename.clone(),
+            folder: folder.clone(),
+            output_dir: output_dir_str.clone(),
+            folder_total,
+            status: "processing".to_string(),
+            code: None,
+            error: None,
+        },
+    );
+
+    let result = ocr_image_direct(image_path, bins, re).and_then(|text| {
+        re.find(&text)
+            .map(|m| m.as_str().to_string())
+            .ok_or_else(|| "Nenhum código encontrado".to_string())
+    });
+
+    match result {
+        Ok(code) => {
+            let dest = unique_destination(output_dir, &code, &ext);
+            match fs::copy(image_path, &dest) {
+                Ok(_) => {
+                    emit_progress(
+                        app,
+                        ProgressEvent {
+                            current,
+                            total,
+                            filename,
+                            folder,
+                            output_dir: output_dir_str,
+                            folder_total,
+                            status: "done".to_string(),
+                            code: Some(code),
+                            error: None,
+                        },
+                    );
+                    None
+                }
+                Err(e) => {
+                    emit_progress(
+                        app,
+                        ProgressEvent {
+                            current,
+                            total,
+                            filename: filename.clone(),
+                            folder,
+                            output_dir: output_dir_str,
+                            folder_total,
+                            status: "error".to_string(),
+                            code: None,
+                            error: Some(format!("copy: {e}")),
+                        },
+                    );
+                    Some(filename)
+                }
+            }
+        }
+        Err(e) => {
+            emit_progress(
+                app,
+                ProgressEvent {
+                    current,
+                    total,
+                    filename: filename.clone(),
+                    folder,
+                    output_dir: output_dir_str,
+                    folder_total,
+                    status: "error".to_string(),
+                    code: None,
+                    error: Some(e),
+                },
+            );
+            Some(filename)
+        }
+    }
+}
+
 #[tauri::command]
 fn process_folders(folders: Vec<String>, app: AppHandle) -> Result<usize, String> {
     let bins = resolve_bins(&app);
@@ -615,31 +732,34 @@ fn process_folders(folders: Vec<String>, app: AppHandle) -> Result<usize, String
         return Err(msg);
     }
 
-    let mut tasks: Vec<(PathBuf, PathBuf)> = vec![];
+    let mut pdf_tasks: Vec<(PathBuf, PathBuf)> = vec![];
+    let mut img_tasks: Vec<(PathBuf, PathBuf)> = vec![];
 
     for folder_str in &folders {
         let folder = PathBuf::from(folder_str);
         eprintln!("[process_folders] scanning: {}", folder.display());
 
         if folder.is_file() {
-            let is_pdf = folder
+            let ext = folder
                 .extension()
                 .and_then(|e| e.to_str())
-                .map(|e| e.to_lowercase() == "pdf")
-                .unwrap_or(false);
-            if is_pdf {
-                let parent = folder.parent().unwrap_or(&folder);
-                let stem = parent
-                    .file_name()
-                    .unwrap_or_default()
-                    .to_string_lossy()
-                    .to_string();
-                let output_dir = parent
-                    .parent()
-                    .unwrap_or(parent)
-                    .join(format!("{stem} (renomeado)"));
-                fs::create_dir_all(&output_dir).map_err(|e| e.to_string())?;
-                tasks.push((folder, output_dir));
+                .map(|e| e.to_lowercase())
+                .unwrap_or_default();
+            let parent = folder.parent().unwrap_or(&folder);
+            let stem = parent
+                .file_name()
+                .unwrap_or_default()
+                .to_string_lossy()
+                .to_string();
+            let output_dir = parent
+                .parent()
+                .unwrap_or(parent)
+                .join(format!("{stem} (renomeado)"));
+            fs::create_dir_all(&output_dir).map_err(|e| e.to_string())?;
+            if ext == "pdf" {
+                pdf_tasks.push((folder, output_dir));
+            } else if is_image(&folder) {
+                img_tasks.push((folder, output_dir));
             }
             continue;
         }
@@ -662,20 +782,28 @@ fn process_folders(folders: Vec<String>, app: AppHandle) -> Result<usize, String
         for entry in WalkDir::new(&folder).min_depth(1).max_depth(1) {
             if let Ok(entry) = entry {
                 let path = entry.path().to_path_buf();
-                let is_pdf = path
+                let ext = path
                     .extension()
                     .and_then(|e| e.to_str())
-                    .map(|e| e.to_lowercase() == "pdf")
-                    .unwrap_or(false);
-                if is_pdf {
-                    tasks.push((path, output_dir.clone()));
+                    .map(|e| e.to_lowercase())
+                    .unwrap_or_default();
+                if ext == "pdf" {
+                    pdf_tasks.push((path, output_dir.clone()));
+                } else if is_image(&path) {
+                    img_tasks.push((path, output_dir.clone()));
                 }
             }
         }
     }
 
+    let tasks: Vec<(PathBuf, PathBuf, bool)> = pdf_tasks
+        .into_iter()
+        .map(|(p, o)| (p, o, false))
+        .chain(img_tasks.into_iter().map(|(p, o)| (p, o, true)))
+        .collect();
+
     let total = tasks.len();
-    eprintln!("[process_folders] total PDFs: {total}");
+    eprintln!("[process_folders] total files: {total}");
 
     if total == 0 {
         return Ok(0);
@@ -683,30 +811,33 @@ fn process_folders(folders: Vec<String>, app: AppHandle) -> Result<usize, String
 
     let mut folder_totals: std::collections::HashMap<String, usize> =
         std::collections::HashMap::new();
-    for (_, output_dir) in &tasks {
+    for (_, output_dir, _) in &tasks {
         *folder_totals
             .entry(output_dir.to_string_lossy().to_string())
             .or_insert(0) += 1;
     }
 
     std::thread::spawn(move || {
-        let re = Regex::new(r"\b\d{5,}\b").unwrap();
+        let re = Regex::new(r"\b10\d{7}\b").unwrap();
         eprintln!("[thread] starting loop");
 
         let mut errors_by_dir: std::collections::HashMap<String, Vec<String>> =
             std::collections::HashMap::new();
 
-        for (idx, (pdf_path, output_dir)) in tasks.iter().enumerate() {
+        for (idx, (file_path, output_dir, is_img)) in tasks.iter().enumerate() {
             let ft = *folder_totals
                 .get(&output_dir.to_string_lossy().to_string())
                 .unwrap_or(&1);
-            if let Some(failed) =
-                process_pdf(pdf_path, output_dir, &re, &app, &bins, idx + 1, total, ft)
-            {
+            let failed = if *is_img {
+                process_image(file_path, output_dir, &re, &app, &bins, idx + 1, total, ft)
+            } else {
+                process_pdf(file_path, output_dir, &re, &app, &bins, idx + 1, total, ft)
+            };
+            if let Some(f) = failed {
                 errors_by_dir
                     .entry(output_dir.to_string_lossy().to_string())
                     .or_default()
-                    .push(failed);
+                    .push(f);
             }
         }
 
