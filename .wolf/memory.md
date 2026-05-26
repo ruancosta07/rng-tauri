@@ -211,3 +211,5 @@
 | 23:16 | Created .github/workflows/build-windows.yml | — | ~1228 |
 | 23:17 | Session end: 8 writes across 7 files (Cargo.toml, tauri.conf.json, default.json, lib.rs, UpdateDialog.tsx) | 7 reads | ~15030 tok |
 | 23:21 | Session end: 8 writes across 7 files (Cargo.toml, tauri.conf.json, default.json, lib.rs, UpdateDialog.tsx) | 7 reads | ~15030 tok |
+| 23:25 | Edited vite.config.ts | 30→26 lines | ~127 |
+| 23:25 | Session end: 9 writes across 8 files (Cargo.toml, tauri.conf.json, default.json, lib.rs, UpdateDialog.tsx) | 8 reads | ~15408 tok |

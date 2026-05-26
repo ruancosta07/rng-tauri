@@ -416,6 +416,22 @@
       "related_bugs": [],
       "occurrences": 2,
       "last_seen": "2026-05-25T18:01:58.497Z"
+    },
+    {
+      "id": "bug-027",
+      "timestamp": "2026-05-26T02:25:45.214Z",
+      "error_message": "Significant refactor of ",
+      "file": "vite.config.ts",
+      "root_cause": "5 lines replaced/restructured",
+      "fix": "Rewrote 30→26 lines (5 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-26T02:25:45.214Z"
     }
   ]
 }

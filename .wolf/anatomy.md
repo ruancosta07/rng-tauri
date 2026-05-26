@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-26T02:16:47.812Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-26T02:25:45.201Z
 > Files: 32 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../.claude/plans/
@@ -16,7 +16,7 @@
 - `README.md` — Project documentation (~95 tok)
 - `tsconfig.json` — TypeScript configuration (~173 tok)
 - `tsconfig.node.json` (~61 tok)
-- `vite.config.ts` — Declares host (~251 tok)
+- `vite.config.ts` — Declares host (~204 tok)
 
 ## .claude/
 
