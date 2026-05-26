@@ -26,7 +26,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDYwNTQ4QTY4RDc3NEY1MjMKUldRajlYVFhhSXBVWUNIMXNLSDZHdXBySDVJMloydCs0aS9FcE5lbGtnM3JEK2xGcHlEY1pheDYK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc4MzBGMDgwRkJCQkMwOEIKUldTTHdMdjdnUEF3ZUwxeGFRTld5WlFMY3hQVUJwcitMNThxWDBGTjRJajlyQTNrbkh6TXRLVVIK",
       "endpoints": [
         "https://github.com/ruancosta07/rng-tauri/releases/latest/download/latest.json"
       ]
