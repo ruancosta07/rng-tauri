@@ -432,6 +432,22 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-26T02:25:45.214Z"
+    },
+    {
+      "id": "bug-028",
+      "timestamp": "2026-05-26T03:36:51.641Z",
+      "error_message": "Wrong reference: true should be v1Compatible",
+      "file": "src-tauri/tauri.conf.json",
+      "root_cause": "Used \"true\" instead of \"v1Compatible\"",
+      "fix": "Changed true → v1Compatible",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "json"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-26T03:36:51.641Z"
     }
   ]
 }

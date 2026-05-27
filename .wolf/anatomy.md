@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-26T02:51:49.115Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-26T03:36:58.437Z
 > Files: 32 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../.claude/plans/
@@ -28,14 +28,14 @@
 
 ## .github/workflows/
 
-- `build-windows.yml` — CI: Build Windows (~1287 tok)
+- `build-windows.yml` — CI: Build Windows (~1334 tok)
 
 ## src-tauri/
 
 - `.gitignore` — Git ignore rules (~45 tok)
 - `build.rs` (~12 tok)
 - `Cargo.toml` — Rust package manifest (~140 tok)
-- `tauri.conf.json` (~344 tok)
+- `tauri.conf.json` (~347 tok)
 
 ## src-tauri/capabilities/
 

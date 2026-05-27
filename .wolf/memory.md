@@ -218,3 +218,8 @@
 | 23:40 | Session end: 11 writes across 8 files (Cargo.toml, tauri.conf.json, default.json, lib.rs, UpdateDialog.tsx) | 8 reads | ~15823 tok |
 | 23:51 | Edited src-tauri/tauri.conf.json | 3→4 lines | ~26 |
 | 23:51 | Session end: 12 writes across 8 files (Cargo.toml, tauri.conf.json, default.json, lib.rs, UpdateDialog.tsx) | 8 reads | ~15894 tok |
+| 00:18 | Edited .github/workflows/build-windows.yml | expanded (+6 lines) | ~110 |
+| 00:19 | Session end: 13 writes across 8 files (Cargo.toml, tauri.conf.json, default.json, lib.rs, UpdateDialog.tsx) | 8 reads | ~16382 tok |
+| 00:36 | Edited src-tauri/tauri.conf.json | inline fix | ~13 |
+| 00:36 | Edited .github/workflows/build-windows.yml | modified if() | ~164 |
+| 00:37 | Session end: 15 writes across 8 files (Cargo.toml, tauri.conf.json, default.json, lib.rs, UpdateDialog.tsx) | 8 reads | ~16559 tok |
