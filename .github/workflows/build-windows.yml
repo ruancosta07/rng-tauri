@@ -91,7 +91,8 @@ jobs:
 
           $repo = "ruancosta07/rng-tauri"
           $tag  = "${{ github.ref_name }}"
-          $url  = "https://github.com/$repo/releases/download/$tag/$($zip.Name)"
+          $encodedName = [System.Uri]::EscapeDataString($zip.Name)
+          $url  = "https://github.com/$repo/releases/download/$tag/$encodedName"
           $date = (Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ")
 
           $json = @{
