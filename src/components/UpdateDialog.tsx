@@ -27,7 +27,9 @@ export function UpdateDialog() {
           setOpen(true)
         }
       })
-      .catch(() => {})
+      .catch((err) => {
+        console.error("[updater] falha ao verificar atualização:", err)
+      })
   }, [])
 
   async function handleUpdate() {

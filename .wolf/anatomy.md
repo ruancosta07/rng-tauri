@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-26T03:36:58.437Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-27T01:46:29.341Z
 > Files: 32 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../.claude/plans/
@@ -28,7 +28,7 @@
 
 ## .github/workflows/
 
-- `build-windows.yml` — CI: Build Windows (~1334 tok)
+- `build-windows.yml` — CI: Build Windows (~1462 tok)
 
 ## src-tauri/
 
@@ -72,4 +72,4 @@
 
 ## src/components/
 
-- `UpdateDialog.tsx` — UpdateDialog (~486 tok)
+- `UpdateDialog.tsx` — UpdateDialog (~507 tok)

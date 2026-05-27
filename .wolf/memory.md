@@ -223,3 +223,13 @@
 | 00:36 | Edited src-tauri/tauri.conf.json | inline fix | ~13 |
 | 00:36 | Edited .github/workflows/build-windows.yml | modified if() | ~164 |
 | 00:37 | Session end: 15 writes across 8 files (Cargo.toml, tauri.conf.json, default.json, lib.rs, UpdateDialog.tsx) | 8 reads | ~16559 tok |
+
+## Session: 2026-05-27 22:41
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 22:46 | Edited src/components/UpdateDialog.tsx | CSS: o | ~84 |
+| 22:46 | Edited .github/workflows/build-windows.yml | expanded (+10 lines) | ~146 |
+| 22:46 | Edited src-tauri/tauri.conf.json | inline fix | ~6 |
+| 22:46 | fix updater: versão 0.1.0→1.0.4 em tauri.conf.json, workflow atualiza versão da tag antes do build, catch com console.error | tauri.conf.json, build-windows.yml, UpdateDialog.tsx | ok | ~800 |
+| 22:46 | Session end: 3 writes across 3 files (UpdateDialog.tsx, build-windows.yml, tauri.conf.json) | 3 reads | ~2403 tok |

@@ -1,153 +1,51 @@
 {
-  "session_id": "session-2026-05-26-2310",
-  "started": "2026-05-26T02:10:42.639Z",
+  "session_id": "session-2026-05-27-2241",
+  "started": "2026-05-27T01:41:04.068Z",
   "files_read": {
     "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml": {
       "count": 2,
-      "tokens": 1287,
-      "first_read": "2026-05-26T02:14:46.729Z"
+      "tokens": 1334,
+      "first_read": "2026-05-27T01:44:37.244Z"
+    },
+    "/home/ruan/Documentos/pessoal/rng-tauri/src/components/UpdateDialog.tsx": {
+      "count": 1,
+      "tokens": 486,
+      "first_read": "2026-05-27T01:44:37.746Z"
     },
     "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json": {
-      "count": 2,
-      "tokens": 300,
-      "first_read": "2026-05-26T02:14:47.265Z"
-    },
-    "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/Cargo.toml": {
       "count": 1,
-      "tokens": 179,
-      "first_read": "2026-05-26T02:14:51.713Z"
-    },
-    "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs": {
-      "count": 1,
-      "tokens": 7505,
-      "first_read": "2026-05-26T02:14:52.278Z"
-    },
-    "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/capabilities/default.json": {
-      "count": 1,
-      "tokens": 70,
-      "first_read": "2026-05-26T02:15:13.260Z"
-    },
-    "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx": {
-      "count": 3,
-      "tokens": 3970,
-      "first_read": "2026-05-26T02:15:13.571Z"
-    },
-    "/home/ruan/Documentos/pessoal/rng-tauri/package.json": {
-      "count": 1,
-      "tokens": 162,
-      "first_read": "2026-05-26T02:15:36.294Z"
-    },
-    "/home/ruan/Documentos/pessoal/rng-tauri/vite.config.ts": {
-      "count": 1,
-      "tokens": 251,
-      "first_read": "2026-05-26T02:25:37.184Z"
+      "tokens": 347,
+      "first_read": "2026-05-27T01:44:38.044Z"
     }
   },
   "files_written": [
     {
-      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/Cargo.toml",
-      "action": "edit",
-      "tokens": 30,
-      "at": "2026-05-26T02:15:52.842Z"
-    },
-    {
-      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json",
-      "action": "edit",
-      "tokens": 65,
-      "at": "2026-05-26T02:15:56.218Z"
-    },
-    {
-      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/capabilities/default.json",
-      "action": "edit",
-      "tokens": 31,
-      "at": "2026-05-26T02:15:59.422Z"
-    },
-    {
-      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
-      "action": "edit",
-      "tokens": 65,
-      "at": "2026-05-26T02:16:03.482Z"
-    },
-    {
       "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/components/UpdateDialog.tsx",
-      "action": "create",
-      "tokens": 486,
-      "at": "2026-05-26T02:16:11.089Z"
-    },
-    {
-      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
       "action": "edit",
-      "tokens": 31,
-      "at": "2026-05-26T02:16:23.787Z"
-    },
-    {
-      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
-      "action": "edit",
-      "tokens": 44,
-      "at": "2026-05-26T02:16:26.850Z"
-    },
-    {
-      "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
-      "action": "create",
-      "tokens": 1228,
-      "at": "2026-05-26T02:16:47.822Z"
-    },
-    {
-      "file": "/home/ruan/Documentos/pessoal/rng-tauri/vite.config.ts",
-      "action": "edit",
-      "tokens": 127,
-      "at": "2026-05-26T02:25:45.212Z"
+      "tokens": 84,
+      "at": "2026-05-27T01:46:18.733Z"
     },
     {
       "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
       "action": "edit",
-      "tokens": 336,
-      "at": "2026-05-26T02:39:56.627Z"
-    },
-    {
-      "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
-      "action": "edit",
-      "tokens": 79,
-      "at": "2026-05-26T02:40:01.477Z"
+      "tokens": 146,
+      "at": "2026-05-27T01:46:26.259Z"
     },
     {
       "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json",
       "action": "edit",
-      "tokens": 26,
-      "at": "2026-05-26T02:51:50.862Z"
-    },
-    {
-      "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
-      "action": "edit",
-      "tokens": 110,
-      "at": "2026-05-26T03:18:59.819Z"
-    },
-    {
-      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json",
-      "action": "edit",
-      "tokens": 13,
-      "at": "2026-05-26T03:36:51.639Z"
-    },
-    {
-      "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
-      "action": "edit",
-      "tokens": 164,
-      "at": "2026-05-26T03:36:58.449Z"
+      "tokens": 6,
+      "at": "2026-05-27T01:46:29.351Z"
     }
   ],
   "edit_counts": {
-    "src-tauri/Cargo.toml": 1,
-    "src-tauri/tauri.conf.json": 3,
-    "src-tauri/capabilities/default.json": 1,
-    "src-tauri/src/lib.rs": 1,
     "src/components/UpdateDialog.tsx": 1,
-    "src/App.tsx": 2,
-    ".github/workflows/build-windows.yml": 5,
-    "vite.config.ts": 1
+    ".github/workflows/build-windows.yml": 1,
+    "src-tauri/tauri.conf.json": 1
   },
-  "anatomy_hits": 8,
+  "anatomy_hits": 3,
   "anatomy_misses": 0,
-  "repeated_reads_warned": 4,
+  "repeated_reads_warned": 1,
   "cerebrum_warnings": 0,
-  "stop_count": 7
+  "stop_count": 1
 }
