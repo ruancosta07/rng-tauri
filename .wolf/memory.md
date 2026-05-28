@@ -233,3 +233,10 @@
 | 22:46 | Edited src-tauri/tauri.conf.json | inline fix | ~6 |
 | 22:46 | fix updater: versão 0.1.0→1.0.4 em tauri.conf.json, workflow atualiza versão da tag antes do build, catch com console.error | tauri.conf.json, build-windows.yml, UpdateDialog.tsx | ok | ~800 |
 | 22:46 | Session end: 3 writes across 3 files (UpdateDialog.tsx, build-windows.yml, tauri.conf.json) | 3 reads | ~2403 tok |
+| 00:01 | Session end: 3 writes across 3 files (UpdateDialog.tsx, build-windows.yml, tauri.conf.json) | 4 reads | ~2486 tok |
+| 00:03 | Edited .github/workflows/build-windows.yml | 4→5 lines | ~84 |
+| 00:03 | Edited src/components/UpdateDialog.tsx | 4→5 lines | ~68 |
+| 00:03 | Edited src/components/UpdateDialog.tsx | added error handling | ~89 |
+| 00:03 | Edited src/components/UpdateDialog.tsx | 6→9 lines | ~116 |
+| 00:04 | Edited src-tauri/tauri.conf.json | inline fix | ~6 |
+| 00:04 | Session end: 8 writes across 3 files (UpdateDialog.tsx, build-windows.yml, tauri.conf.json) | 4 reads | ~2849 tok |

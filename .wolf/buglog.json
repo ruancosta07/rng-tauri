@@ -464,6 +464,38 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-27T01:46:29.352Z"
+    },
+    {
+      "id": "bug-030",
+      "timestamp": "2026-05-27T03:03:54.638Z",
+      "error_message": "Missing error handling in function",
+      "file": "src/components/UpdateDialog.tsx",
+      "root_cause": "Code path had no error handling — exceptions would propagate uncaught",
+      "fix": "Added try/catch block",
+      "tags": [
+        "auto-detected",
+        "error-handling",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T03:03:54.638Z"
+    },
+    {
+      "id": "bug-031",
+      "timestamp": "2026-05-27T03:04:07.458Z",
+      "error_message": "Incorrect value in code",
+      "file": "src-tauri/tauri.conf.json",
+      "root_cause": "Had \"1.0.5\"",
+      "fix": "Changed to \"1.0.6\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "json"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T03:04:07.458Z"
     }
   ]
 }

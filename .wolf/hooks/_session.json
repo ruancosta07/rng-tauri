@@ -13,9 +13,14 @@
       "first_read": "2026-05-27T01:44:37.746Z"
     },
     "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json": {
-      "count": 1,
+      "count": 2,
       "tokens": 347,
       "first_read": "2026-05-27T01:44:38.044Z"
+    },
+    "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/capabilities/default.json": {
+      "count": 1,
+      "tokens": 83,
+      "first_read": "2026-05-27T02:58:40.840Z"
     }
   },
   "files_written": [
@@ -36,16 +41,46 @@
       "action": "edit",
       "tokens": 6,
       "at": "2026-05-27T01:46:29.351Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
+      "action": "edit",
+      "tokens": 84,
+      "at": "2026-05-27T03:03:46.025Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/components/UpdateDialog.tsx",
+      "action": "edit",
+      "tokens": 68,
+      "at": "2026-05-27T03:03:50.426Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/components/UpdateDialog.tsx",
+      "action": "edit",
+      "tokens": 89,
+      "at": "2026-05-27T03:03:54.636Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/components/UpdateDialog.tsx",
+      "action": "edit",
+      "tokens": 116,
+      "at": "2026-05-27T03:03:59.889Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/tauri.conf.json",
+      "action": "edit",
+      "tokens": 6,
+      "at": "2026-05-27T03:04:07.457Z"
     }
   ],
   "edit_counts": {
-    "src/components/UpdateDialog.tsx": 1,
-    ".github/workflows/build-windows.yml": 1,
-    "src-tauri/tauri.conf.json": 1
+    "src/components/UpdateDialog.tsx": 4,
+    ".github/workflows/build-windows.yml": 2,
+    "src-tauri/tauri.conf.json": 2
   },
-  "anatomy_hits": 3,
+  "anatomy_hits": 4,
   "anatomy_misses": 0,
-  "repeated_reads_warned": 1,
+  "repeated_reads_warned": 2,
   "cerebrum_warnings": 0,
-  "stop_count": 1
+  "stop_count": 3
 }
