@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-27T03:04:07.446Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-28T01:20:25.795Z
 > Files: 32 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../.claude/plans/
@@ -72,4 +72,4 @@
 
 ## src/components/
 
-- `UpdateDialog.tsx` — UpdateDialog (~597 tok)
+- `UpdateDialog.tsx` — UpdateDialog (~670 tok)

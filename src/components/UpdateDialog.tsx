@@ -3,7 +3,6 @@ import { check, type Update } from "@tauri-apps/plugin-updater"
 import { relaunch } from "@tauri-apps/plugin-process"
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -48,7 +47,7 @@ export function UpdateDialog() {
   }
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
+    <AlertDialog open={open} onOpenChange={(v) => { if (!updating) setOpen(v) }}>
       <AlertDialogContent size="sm">
         <AlertDialogHeader>
           <AlertDialogTitle>Atualização disponível</AlertDialogTitle>
@@ -61,9 +60,13 @@ export function UpdateDialog() {
         )}
         <AlertDialogFooter>
           <AlertDialogCancel disabled={updating}>Agora não</AlertDialogCancel>
-          <AlertDialogAction onClick={handleUpdate} disabled={updating}>
+          <button
+            onClick={handleUpdate}
+            disabled={updating}
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
+          >
             {updating ? "Atualizando..." : "Atualizar"}
-          </AlertDialogAction>
+          </button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

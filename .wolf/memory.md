@@ -240,3 +240,13 @@
 | 00:03 | Edited src/components/UpdateDialog.tsx | 6→9 lines | ~116 |
 | 00:04 | Edited src-tauri/tauri.conf.json | inline fix | ~6 |
 | 00:04 | Session end: 8 writes across 3 files (UpdateDialog.tsx, build-windows.yml, tauri.conf.json) | 4 reads | ~2849 tok |
+
+## Session: 2026-05-28 22:17
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 22:20 | Edited src/components/UpdateDialog.tsx | CSS: hover, disabled, disabled | ~155 |
+| 22:20 | Edited src/components/UpdateDialog.tsx | 10→9 lines | ~52 |
+| 22:20 | Edited src/components/UpdateDialog.tsx | inline fix | ~24 |
+| 22:20 | Fix updater dialog: button nao fechava dialog durante download | src/components/UpdateDialog.tsx | ok | ~150 |
+| 22:20 | Session end: 3 writes across 1 files (UpdateDialog.tsx) | 4 reads | ~2810 tok |
