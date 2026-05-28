@@ -10,7 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog"
-
+ 
 export function UpdateDialog() {
   const [open, setOpen] = useState(false)
   const [version, setVersion] = useState("")
