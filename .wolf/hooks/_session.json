@@ -16,6 +16,11 @@
       "count": 2,
       "tokens": 3993,
       "first_read": "2026-06-04T17:28:03.578Z"
+    },
+    "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml": {
+      "count": 2,
+      "tokens": 1477,
+      "first_read": "2026-06-04T18:01:14.120Z"
     }
   },
   "files_written": [
@@ -84,15 +89,22 @@
       "action": "edit",
       "tokens": 491,
       "at": "2026-06-04T17:28:49.087Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/.github/workflows/build-windows.yml",
+      "action": "edit",
+      "tokens": 15,
+      "at": "2026-06-04T18:01:17.327Z"
     }
   ],
   "edit_counts": {
     "src-tauri/src/lib.rs": 10,
-    "src/App.tsx": 1
+    "src/App.tsx": 1,
+    ".github/workflows/build-windows.yml": 1
   },
-  "anatomy_hits": 3,
+  "anatomy_hits": 4,
   "anatomy_misses": 0,
-  "repeated_reads_warned": 1,
+  "repeated_reads_warned": 2,
   "cerebrum_warnings": 0,
-  "stop_count": 14
+  "stop_count": 16
 }
