@@ -409,7 +409,7 @@ fn diagnose(pdf_path: String, app: AppHandle) -> Result<Vec<String>, String> {
         step!("tessdata: {}", td.display());
     }
 
-    let re = Regex::new(r"\b10\d{7}\b").unwrap();
+    let re = Regex::new(r"\b(?:10\d{6,7}|11\d{6}|9\d{7}|1[678]\d{8})\b").unwrap();
     step!("running pdftotext...");
     match extract_pdf_text(&PathBuf::from(&pdf_path), &bins) {
         Ok(text) => {
@@ -487,7 +487,77 @@ fn diagnose(pdf_path: String, app: AppHandle) -> Result<Vec<String>, String> {
 
 // ── process ────────────────────────────────────────────────────────────────
 
-// Returns the original filename if the PDF failed to process.
+fn collect_pdf_code(
+    pdf_path: &PathBuf,
+    re: &Regex,
+    bins: &BinPaths,
+    dbg: &mut Vec<String>,
+) -> Result<String, String> {
+    match extract_pdf_text(pdf_path, bins) {
+        Ok(text) => {
+            dbg.push(format!("pdftotext: ok ({} chars)", text.len()));
+            dbg.push(format!("preview: {:?}", text.chars().take(300).collect::<String>()));
+            if let Some(m) = re.find(&text) {
+                dbg.push(format!("código encontrado (pdftotext): {}", m.as_str()));
+                return Ok(m.as_str().to_string());
+            }
+            dbg.push("pdftotext: código não encontrado — tentando OCR".to_string());
+        }
+        Err(e) => {
+            dbg.push(format!("pdftotext: erro — {e}"));
+        }
+    }
+
+    let temp_dir = TempDir::new().map_err(|e| format!("tempdir: {e}"))?;
+    let image_path = match pdf_first_page_to_image(pdf_path, &temp_dir, bins) {
+        Ok(p) => { dbg.push(format!("pdftoppm: ok — {}", p.display())); p }
+        Err(e) => { dbg.push(format!("pdftoppm: erro — {e}")); return Err(e); }
+    };
+
+    let text = match ocr_image(&image_path, bins) {
+        Ok(t) => {
+            dbg.push(format!("tesseract: ok ({} chars)", t.len()));
+            dbg.push(format!("preview: {:?}", t.chars().take(300).collect::<String>()));
+            t
+        }
+        Err(e) => { dbg.push(format!("tesseract: erro — {e}")); return Err(e); }
+    };
+
+    re.find(&text)
+        .map(|m| {
+            dbg.push(format!("código encontrado (OCR): {}", m.as_str()));
+            m.as_str().to_string()
+        })
+        .ok_or_else(|| "Nenhum código encontrado".to_string())
+}
+
+fn collect_image_code(
+    image_path: &PathBuf,
+    re: &Regex,
+    bins: &BinPaths,
+    dbg: &mut Vec<String>,
+) -> Result<String, String> {
+    let text = match ocr_image_direct(image_path, bins, re) {
+        Ok(t) => {
+            dbg.push(format!("tesseract: ok ({} chars)", t.len()));
+            dbg.push(format!("preview: {:?}", t.chars().take(300).collect::<String>()));
+            t
+        }
+        Err(e) => {
+            dbg.push(format!("tesseract: erro — {e}"));
+            return Err(e);
+        }
+    };
+
+    re.find(&text)
+        .map(|m| {
+            dbg.push(format!("código encontrado: {}", m.as_str()));
+            m.as_str().to_string()
+        })
+        .ok_or_else(|| "Nenhum código encontrado".to_string())
+}
+
+// Returns (failed_filename, debug_info) — debug_info is non-empty only on failure.
 fn process_pdf(
     pdf_path: &PathBuf,
     output_dir: &PathBuf,
@@ -497,7 +567,7 @@ fn process_pdf(
     current: usize,
     total: usize,
     folder_total: usize,
-) -> Option<String> {
+) -> (Option<String>, String) {
     let filename = pdf_path
         .file_name()
         .unwrap_or_default()
@@ -527,28 +597,8 @@ fn process_pdf(
         },
     );
 
-    let result = (|| -> Result<String, String> {
-        match extract_pdf_text(pdf_path, bins) {
-            Ok(text) => {
-                if let Some(code) = re.find(&text).map(|m| m.as_str().to_string()) {
-                    eprintln!("[process] code from pdftotext: {code}");
-                    return Ok(code);
-                }
-                eprintln!("[process] pdftotext found no code, falling back to OCR");
-            }
-            Err(e) => {
-                eprintln!("[process] pdftotext failed, falling back to OCR: {e}");
-            }
-        }
-
-        let temp_dir = TempDir::new().map_err(|e| format!("tempdir: {e}"))?;
-        let image_path = pdf_first_page_to_image(pdf_path, &temp_dir, bins)?;
-        let text = ocr_image(&image_path, bins)?;
-
-        re.find(&text)
-            .map(|m| m.as_str().to_string())
-            .ok_or_else(|| "Nenhum código encontrado".to_string())
-    })();
+    let mut dbg: Vec<String> = vec![format!("arquivo: {}", pdf_path.display())];
+    let result = collect_pdf_code(pdf_path, re, bins, &mut dbg);
 
     eprintln!(
         "[process] result: {:?}",
@@ -575,7 +625,7 @@ fn process_pdf(
                             error: None,
                         },
                     );
-                    None
+                    (None, String::new())
                 }
                 Err(e) => {
                     emit_progress(
@@ -592,11 +642,12 @@ fn process_pdf(
                             error: Some(format!("copy: {e}")),
                         },
                     );
-                    Some(filename)
+                    (Some(filename), String::new())
                 }
             }
         }
         Err(e) => {
+            dbg.push(format!("resultado: ERRO — {e}"));
             emit_progress(
                 app,
                 ProgressEvent {
@@ -611,7 +662,7 @@ fn process_pdf(
                     error: Some(e),
                 },
             );
-            Some(filename)
+            (Some(filename), dbg.join("\n"))
         }
     }
 }
@@ -625,7 +676,7 @@ fn process_image(
     current: usize,
     total: usize,
     folder_total: usize,
-) -> Option<String> {
+) -> (Option<String>, String) {
     let filename = image_path
         .file_name()
         .unwrap_or_default()
@@ -659,11 +710,8 @@ fn process_image(
         },
     );
 
-    let result = ocr_image_direct(image_path, bins, re).and_then(|text| {
-        re.find(&text)
-            .map(|m| m.as_str().to_string())
-            .ok_or_else(|| "Nenhum código encontrado".to_string())
-    });
+    let mut dbg: Vec<String> = vec![format!("arquivo: {}", image_path.display())];
+    let result = collect_image_code(image_path, re, bins, &mut dbg);
 
     match result {
         Ok(code) => {
@@ -684,7 +732,7 @@ fn process_image(
                             error: None,
                         },
                     );
-                    None
+                    (None, String::new())
                 }
                 Err(e) => {
                     emit_progress(
@@ -701,11 +749,12 @@ fn process_image(
                             error: Some(format!("copy: {e}")),
                         },
                     );
-                    Some(filename)
+                    (Some(filename), String::new())
                 }
             }
         }
         Err(e) => {
+            dbg.push(format!("resultado: ERRO — {e}"));
             emit_progress(
                 app,
                 ProgressEvent {
@@ -720,7 +769,7 @@ fn process_image(
                     error: Some(e),
                 },
             );
-            Some(filename)
+            (Some(filename), dbg.join("\n"))
         }
     }
 }
@@ -818,26 +867,35 @@ fn process_folders(folders: Vec<String>, app: AppHandle) -> Result<usize, String
     }
 
     std::thread::spawn(move || {
-        let re = Regex::new(r"\b10\d{7}\b").unwrap();
+        let re = Regex::new(r"\b(?:10\d{6,7}|11\d{6}|9\d{7}|1[678]\d{8})\b").unwrap();
         eprintln!("[thread] starting loop");
 
         let mut errors_by_dir: std::collections::HashMap<String, Vec<String>> =
+            std::collections::HashMap::new();
+        let mut debug_by_dir: std::collections::HashMap<String, Vec<String>> =
             std::collections::HashMap::new();
 
         for (idx, (file_path, output_dir, is_img)) in tasks.iter().enumerate() {
             let ft = *folder_totals
                 .get(&output_dir.to_string_lossy().to_string())
                 .unwrap_or(&1);
-            let failed = if *is_img {
+            let output_dir_str = output_dir.to_string_lossy().to_string();
+            let (failed, debug_entry) = if *is_img {
                 process_image(file_path, output_dir, &re, &app, &bins, idx + 1, total, ft)
             } else {
                 process_pdf(file_path, output_dir, &re, &app, &bins, idx + 1, total, ft)
             };
             if let Some(f) = failed {
                 errors_by_dir
-                    .entry(output_dir.to_string_lossy().to_string())
+                    .entry(output_dir_str.clone())
                     .or_default()
                     .push(f);
+                if !debug_entry.is_empty() {
+                    debug_by_dir
+                        .entry(output_dir_str)
+                        .or_default()
+                        .push(debug_entry);
+                }
             }
         }
 
@@ -851,6 +909,16 @@ fn process_folders(folders: Vec<String>, app: AppHandle) -> Result<usize, String
                     "[thread] wrote erros.txt with {} entries",
                     failed_files.len()
                 );
+            }
+        }
+
+        for (dir, entries) in &debug_by_dir {
+            let path = PathBuf::from(dir).join("debug.txt");
+            let content = entries.join("\n\n---\n\n");
+            if let Err(e) = fs::write(&path, content) {
+                eprintln!("[thread] failed to write debug.txt: {e}");
+            } else {
+                eprintln!("[thread] wrote debug.txt with {} entries", entries.len());
             }
         }
 

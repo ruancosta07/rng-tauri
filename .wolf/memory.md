@@ -250,3 +250,26 @@
 | 22:20 | Edited src/components/UpdateDialog.tsx | inline fix | ~24 |
 | 22:20 | Fix updater dialog: button nao fechava dialog durante download | src/components/UpdateDialog.tsx | ok | ~150 |
 | 22:20 | Session end: 3 writes across 1 files (UpdateDialog.tsx) | 4 reads | ~2810 tok |
+| 22:45 | Session end: 3 writes across 1 files (UpdateDialog.tsx) | 4 reads | ~2810 tok |
+
+## Session: 2026-06-01 17:19
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 17:27 | Edited src-tauri/src/lib.rs | 2→2 lines | ~28 |
+| 17:27 | Edited src-tauri/src/lib.rs | 2→2 lines | ~32 |
+| 17:27 | Session end: 2 writes across 1 files (lib.rs) | 1 reads | ~7598 tok |
+| 18:03 | Edited src-tauri/src/lib.rs | "\b(?:10\d{6,7}|11\d{6}|9\" → "\b(?:10\d{6,7}|11\d{6}|9\" | ~19 |
+| 18:03 | Session end: 3 writes across 1 files (lib.rs) | 1 reads | ~7618 tok |
+
+## Session: 2026-06-04 12:29
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 13:05 | Edited src-tauri/src/lib.rs | modified collect_pdf_code() | ~682 |
+| 13:05 | Edited src-tauri/src/lib.rs | 3→3 lines | ~23 |
+| 13:06 | Edited src-tauri/src/lib.rs | modified copy() | ~652 |
+| 13:06 | Edited src-tauri/src/lib.rs | 3→3 lines | ~23 |
+| 13:06 | Edited src-tauri/src/lib.rs | modified copy() | ~592 |
+| 13:06 | Edited src-tauri/src/lib.rs | modified enumerate() | ~572 |
+| 13:07 | Session end: 6 writes across 1 files (lib.rs) | 2 reads | ~10623 tok |

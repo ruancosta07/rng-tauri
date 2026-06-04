@@ -546,6 +546,54 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-28T01:20:33.422Z"
+    },
+    {
+      "id": "bug-035",
+      "timestamp": "2026-06-01T20:27:12.054Z",
+      "error_message": "Incorrect value in code",
+      "file": "src-tauri/src/lib.rs",
+      "root_cause": "Had \"\\b10\\d{7}\\b\"",
+      "fix": "Changed to \"\\b(?:10\\d{6,7}|11\\d{6}|9\\d{7})\\b\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "rs"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-06-01T20:27:15.502Z"
+    },
+    {
+      "id": "bug-036",
+      "timestamp": "2026-06-01T21:03:02.371Z",
+      "error_message": "Incorrect value in code",
+      "file": "src-tauri/src/lib.rs",
+      "root_cause": "Had \"\\b(?:10\\d{6,7}|11\\d{6}|9\\d{7})\\b\"",
+      "fix": "Changed to \"\\b(?:10\\d{6,7}|11\\d{6}|9\\d{7}|1[678]\\d{8})\\b\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "rs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-01T21:03:02.371Z"
+    },
+    {
+      "id": "bug-037",
+      "timestamp": "2026-06-04T16:06:32.404Z",
+      "error_message": "Significant refactor of ",
+      "file": "src-tauri/src/lib.rs",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 32→51 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "rs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-04T16:06:32.404Z"
     }
   ]
 }
