@@ -73,6 +73,12 @@ export default function App() {
     setStatusMsg("Escaneando pastas...");
 
     let unlisten: (() => void) | undefined;
+    let unlistenDone: (() => void) | undefined;
+
+    const cleanup = () => {
+      unlisten?.();
+      unlistenDone?.();
+    };
 
     try {
       unlisten = await listen<ProgressPayload>("progress", (event) => {
@@ -81,11 +87,11 @@ export default function App() {
         if (p.status === "fatal") {
           setStatusMsg(`Erro: ${p.error}`);
           processingRef.current = false;
-          unlisten?.();
+          cleanup();
           return;
         }
 
-setFiles((prev) => {
+        setFiles((prev) => {
           if (!p.filename) return prev;
           const entry: FileStatus = {
             filename: p.filename,
@@ -104,13 +110,13 @@ setFiles((prev) => {
           }
           return [...prev, entry];
         });
+      });
 
-        if (p.current >= p.total && p.total > 0) {
-          processingRef.current = false;
-          setDone(true);
-          setStatusMsg(null);
-          unlisten?.();
-        }
+      unlistenDone = await listen("process-done", () => {
+        processingRef.current = false;
+        setDone(true);
+        setStatusMsg(null);
+        cleanup();
       });
 
       const total = await invoke<number>("process_folders", { folders: paths });
@@ -118,7 +124,7 @@ setFiles((prev) => {
       if (total === 0) {
         setStatusMsg("Nenhum PDF encontrado nas pastas selecionadas.");
         processingRef.current = false;
-        unlisten();
+        cleanup();
         return;
       }
 
@@ -126,7 +132,7 @@ setFiles((prev) => {
     } catch (e) {
       setStatusMsg(`Erro: ${String(e)}`);
       processingRef.current = false;
-      unlisten?.();
+      cleanup();
     }
   }, []);
 

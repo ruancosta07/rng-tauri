@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-06-04T16:06:32.392Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-06-04T17:28:49.045Z
 > Files: 32 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../.claude/plans/
@@ -59,13 +59,13 @@
 
 ## src-tauri/src/
 
-- `lib.rs` (~8255 tok)
+- `lib.rs` (~8396 tok)
 - `main.rs` — Prevents additional console window on Windows in release, DO NOT REMOVE!! (~53 tok)
 
 ## src/
 
 - `App.css` — Styles: 8 rules, 1 media queries (~497 tok)
-- `App.tsx` — HISTORY_KEY (~3993 tok)
+- `App.tsx` — HISTORY_KEY (~4029 tok)
 - `index.css` — Styles: 1 rules (~7 tok)
 - `main.tsx` (~72 tok)
 - `vite-env.d.ts` — / <reference types="vite/client" /> (~11 tok)

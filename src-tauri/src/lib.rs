@@ -3,6 +3,7 @@ use serde::Serialize;
 use std::fs;
 use std::path::PathBuf;
 use std::process::{Command, Output, Stdio};
+use std::sync::Arc;
 use std::time::{Duration, Instant};
 use tauri::{AppHandle, Emitter, Manager};
 use tempfile::TempDir;
@@ -44,6 +45,7 @@ struct DownloadEvent {
 
 // ── resolved binary paths ──────────────────────────────────────────────────
 
+#[derive(Clone)]
 struct BinPaths {
     pdftoppm: PathBuf,
     pdftotext: PathBuf,
@@ -845,84 +847,100 @@ fn process_folders(folders: Vec<String>, app: AppHandle) -> Result<usize, String
         }
     }
 
-    let tasks: Vec<(PathBuf, PathBuf, bool)> = pdf_tasks
-        .into_iter()
-        .map(|(p, o)| (p, o, false))
-        .chain(img_tasks.into_iter().map(|(p, o)| (p, o, true)))
-        .collect();
+    // Group tasks by output directory for parallel folder processing
+    let mut folder_map: std::collections::HashMap<PathBuf, Vec<(PathBuf, bool)>> =
+        std::collections::HashMap::new();
+    for (p, o) in pdf_tasks {
+        folder_map.entry(o).or_default().push((p, false));
+    }
+    for (p, o) in img_tasks {
+        folder_map.entry(o).or_default().push((p, true));
+    }
 
-    let total = tasks.len();
-    eprintln!("[process_folders] total files: {total}");
+    let total: usize = folder_map.values().map(|v| v.len()).sum();
+    eprintln!(
+        "[process_folders] total files: {total}, pastas: {}",
+        folder_map.len()
+    );
 
     if total == 0 {
         return Ok(0);
     }
 
-    let mut folder_totals: std::collections::HashMap<String, usize> =
-        std::collections::HashMap::new();
-    for (_, output_dir, _) in &tasks {
-        *folder_totals
-            .entry(output_dir.to_string_lossy().to_string())
-            .or_insert(0) += 1;
-    }
+    let bins = Arc::new(bins);
 
     std::thread::spawn(move || {
-        let re = Regex::new(r"\b(?:10\d{6,7}|11\d{6}|9\d{7}|1[678]\d{8})\b").unwrap();
-        eprintln!("[thread] starting loop");
+        let re = Arc::new(
+            Regex::new(r"\b(?:10\d{6,7}|11\d{6}|9\d{7}|1[678]\d{8})\b").unwrap(),
+        );
 
-        let mut errors_by_dir: std::collections::HashMap<String, Vec<String>> =
-            std::collections::HashMap::new();
-        let mut debug_by_dir: std::collections::HashMap<String, Vec<String>> =
-            std::collections::HashMap::new();
+        let handles: Vec<_> = folder_map
+            .into_iter()
+            .map(|(output_dir, files)| {
+                let app = app.clone();
+                let bins = bins.clone();
+                let re = re.clone();
 
-        for (idx, (file_path, output_dir, is_img)) in tasks.iter().enumerate() {
-            let ft = *folder_totals
-                .get(&output_dir.to_string_lossy().to_string())
-                .unwrap_or(&1);
-            let output_dir_str = output_dir.to_string_lossy().to_string();
-            let (failed, debug_entry) = if *is_img {
-                process_image(file_path, output_dir, &re, &app, &bins, idx + 1, total, ft)
-            } else {
-                process_pdf(file_path, output_dir, &re, &app, &bins, idx + 1, total, ft)
-            };
-            if let Some(f) = failed {
-                errors_by_dir
-                    .entry(output_dir_str.clone())
-                    .or_default()
-                    .push(f);
-                if !debug_entry.is_empty() {
-                    debug_by_dir
-                        .entry(output_dir_str)
-                        .or_default()
-                        .push(debug_entry);
-                }
-            }
+                std::thread::spawn(move || {
+                    let folder_total = files.len();
+                    eprintln!(
+                        "[thread] pasta '{}' — {} arquivo(s)",
+                        output_dir.display(),
+                        folder_total
+                    );
+
+                    let mut errors: Vec<String> = vec![];
+                    let mut debug_entries: Vec<String> = vec![];
+
+                    for (idx, (file_path, is_img)) in files.iter().enumerate() {
+                        let (failed, dbg) = if *is_img {
+                            process_image(
+                                file_path, &output_dir, &re, &app, &bins,
+                                idx + 1, folder_total, folder_total,
+                            )
+                        } else {
+                            process_pdf(
+                                file_path, &output_dir, &re, &app, &bins,
+                                idx + 1, folder_total, folder_total,
+                            )
+                        };
+                        if let Some(f) = failed {
+                            errors.push(f);
+                            if !dbg.is_empty() {
+                                debug_entries.push(dbg);
+                            }
+                        }
+                    }
+
+                    if !errors.is_empty() {
+                        let path = output_dir.join("erros.txt");
+                        if let Err(e) = fs::write(&path, errors.join("\n")) {
+                            eprintln!("[thread] failed to write erros.txt: {e}");
+                        }
+                    }
+                    if !debug_entries.is_empty() {
+                        let path = output_dir.join("debug.txt");
+                        if let Err(e) =
+                            fs::write(&path, debug_entries.join("\n\n---\n\n"))
+                        {
+                            eprintln!("[thread] failed to write debug.txt: {e}");
+                        }
+                    }
+
+                    eprintln!(
+                        "[thread] pasta concluída, erros: {}",
+                        errors.len()
+                    );
+                })
+            })
+            .collect();
+
+        for handle in handles {
+            handle.join().ok();
         }
 
-        for (dir, failed_files) in &errors_by_dir {
-            let path = PathBuf::from(dir).join("erros.txt");
-            let content = failed_files.join("\n");
-            if let Err(e) = fs::write(&path, content) {
-                eprintln!("[thread] failed to write erros.txt: {e}");
-            } else {
-                eprintln!(
-                    "[thread] wrote erros.txt with {} entries",
-                    failed_files.len()
-                );
-            }
-        }
-
-        for (dir, entries) in &debug_by_dir {
-            let path = PathBuf::from(dir).join("debug.txt");
-            let content = entries.join("\n\n---\n\n");
-            if let Err(e) = fs::write(&path, content) {
-                eprintln!("[thread] failed to write debug.txt: {e}");
-            } else {
-                eprintln!("[thread] wrote debug.txt with {} entries", entries.len());
-            }
-        }
-
-        eprintln!("[thread] done");
+        eprintln!("[thread] todas as pastas concluídas");
+        let _ = app.emit("process-done", ());
     });
 
     Ok(total)

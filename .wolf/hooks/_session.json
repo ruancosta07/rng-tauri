@@ -11,6 +11,11 @@
       "count": 1,
       "tokens": 347,
       "first_read": "2026-06-04T15:44:08.164Z"
+    },
+    "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx": {
+      "count": 2,
+      "tokens": 3993,
+      "first_read": "2026-06-04T17:28:03.578Z"
     }
   },
   "files_written": [
@@ -49,14 +54,45 @@
       "action": "edit",
       "tokens": 613,
       "at": "2026-06-04T16:06:32.402Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 18,
+      "at": "2026-06-04T17:17:48.478Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 10,
+      "at": "2026-06-04T17:17:51.479Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 976,
+      "at": "2026-06-04T17:18:11.740Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src-tauri/src/lib.rs",
+      "action": "edit",
+      "tokens": 54,
+      "at": "2026-06-04T17:28:36.552Z"
+    },
+    {
+      "file": "/home/ruan/Documentos/pessoal/rng-tauri/src/App.tsx",
+      "action": "edit",
+      "tokens": 491,
+      "at": "2026-06-04T17:28:49.087Z"
     }
   ],
   "edit_counts": {
-    "src-tauri/src/lib.rs": 6
+    "src-tauri/src/lib.rs": 10,
+    "src/App.tsx": 1
   },
-  "anatomy_hits": 2,
+  "anatomy_hits": 3,
   "anatomy_misses": 0,
-  "repeated_reads_warned": 0,
+  "repeated_reads_warned": 1,
   "cerebrum_warnings": 0,
-  "stop_count": 12
+  "stop_count": 14
 }
